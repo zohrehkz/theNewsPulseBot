@@ -45,6 +45,7 @@ while True:
         app = ApplicationBuilder().token(TOKEN).build()
         app.add_handler(CommandHandler("start", start))
         app.add_handler(CallbackQueryHandler(button))
+        print("Bot is starting...")
         app.run_polling()
     except Exception as e:
         print("Crash:", e)
