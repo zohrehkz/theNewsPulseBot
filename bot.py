@@ -35,11 +35,12 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
     news = get_news(query.data)
     await query.edit_message_text(news)
 
-try:
-    app = ApplicationBuilder().token(TOKEN).build()
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(CallbackQueryHandler(button))
-    app.run_polling()
-except Exception as e:
-    print("Crash:", e)
-    time.sleep(10)  # جلوگیری از exit سریع
+while True:
+    try:
+        app = ApplicationBuilder().token(TOKEN).build()
+        app.add_handler(CommandHandler("start", start))
+        app.add_handler(CallbackQueryHandler(button))
+        app.run_polling()
+    except Exception as e:
+        print("Crash:", e)
+        time.sleep(10)  # جلوگیری از قطع شدن سرویس
