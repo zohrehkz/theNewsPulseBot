@@ -4,8 +4,10 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
 import feedparser
 
+# گرفتن توکن از Environment
 TOKEN = os.environ.get("BOT_TOKEN")
 
+# تابع گرفتن اخبار بر اساس دسته‌بندی
 def get_news(category):
     feeds = {
         "sports": "https://www.espn.com/espn/rss/news",
@@ -21,6 +23,7 @@ def get_news(category):
     except Exception as e:
         return f"خطا در دریافت خبر: {e}"
 
+# دستور /start
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
         [InlineKeyboardButton("⚽ ورزشی", callback_data="sports")],
@@ -29,12 +32,14 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ]
     await update.message.reply_text("دسته خبر رو انتخاب کن:", reply_markup=InlineKeyboardMarkup(keyboard))
 
+# پاسخ به دکمه‌ها
 async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
     news = get_news(query.data)
     await query.edit_message_text(news)
 
+# اجرای bot در یک loop مقاوم به crash
 while True:
     try:
         app = ApplicationBuilder().token(TOKEN).build()
@@ -43,4 +48,4 @@ while True:
         app.run_polling()
     except Exception as e:
         print("Crash:", e)
-        time.sleep(10)  # جلوگیری از قطع شدن سرویس
+        time.sleep(10)  # جلوگیری از exit سریع
