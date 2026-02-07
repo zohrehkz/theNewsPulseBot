@@ -1,5 +1,5 @@
 services:
   - type: worker
-    name: telegram-news-bot
-    env: python
+    name: news-pulse
+    runtime: python
     startCommand: python bot.py
