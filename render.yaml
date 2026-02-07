@@ -1,5 +1,5 @@
 services:
   - type: worker
     name: news-pulse
-    runtime: python
+    env: python
     startCommand: python bot.py
