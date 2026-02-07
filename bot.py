@@ -1,5 +1,5 @@
-import time
 import os
+import time
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
 import feedparser
@@ -42,4 +42,4 @@ try:
     app.run_polling()
 except Exception as e:
     print("Crash:", e)
-    time.sleep(10)  # جلوگیری از exit سریع برای Railway
+    time.sleep(10)  # جلوگیری از exit سریع
